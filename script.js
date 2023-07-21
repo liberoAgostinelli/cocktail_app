@@ -2,6 +2,7 @@
 
 const btn_search = document.getElementsByClassName('btn-search')[0];
 const input_search = document.getElementById('input-search');
+const div_wrappComponents = document.getElementsByClassName('wrappComponents')[0];
 
 function flatIngredients(json){
     
@@ -26,14 +27,13 @@ function flatIngredients(json){
 
 function fnSearchCocktail() {
     const value = input_search.value;
-    console.log("Btn clicked!", input_search.value);
+    console.log("Btn clicked!", input_search.value, null);
 
     if(value !== ""){
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${value}`)
         .then(response => response.json())
         .then(dati => {
 
-            const div_wrappComponents = document.getElementsByClassName('wrappComponents')[0];
             div_wrappComponents.innerHTML = "";
             if(dati.drinks !== null){
                 const d = dati.drinks.map( el =>{
@@ -52,9 +52,9 @@ function fnSearchCocktail() {
                 d.map( (el) => {
                     fnCreaComponent(el);
                 })
-            }
+            }else showAll();
         });
-    }
+    }else showAll();
 }
 
 // Funzione crea component
@@ -133,7 +133,9 @@ btn_search.addEventListener('click', fnSearchCocktail);
 
 input_search.addEventListener('change', fnSearchCocktail);
 
-fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`)
+function showAll(){
+    div_wrappComponents.innerHTML = "";
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`)
         .then(response => response.json())
         .then(dati => {
 
@@ -158,3 +160,6 @@ fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`)
                 })
             }
         });
+}
+
+showAll();
