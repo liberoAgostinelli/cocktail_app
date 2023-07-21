@@ -37,7 +37,6 @@ li{
 }
 
 .wrappSearch{
-    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,7 +44,6 @@ li{
     height: 60px;
 }
 .search{
-    border: 1px solid blue;
     display: flex;
     align-items: center;
     justify-content: center;
