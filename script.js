@@ -24,7 +24,7 @@ function flatIngredients(json){
 
 
 
-const fnSearchCocktail = () =>{
+function fnSearchCocktail() {
     const value = input_search.value;
     console.log("Btn clicked!", input_search.value);
 
@@ -132,3 +132,29 @@ const fnCreaComponent = (obj) => {
 btn_search.addEventListener('click', fnSearchCocktail);
 
 input_search.addEventListener('change', fnSearchCocktail);
+
+fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`)
+        .then(response => response.json())
+        .then(dati => {
+
+            const div_wrappComponents = document.getElementsByClassName('wrappComponents')[0];
+            div_wrappComponents.innerHTML = "";
+            if(dati.drinks !== null){
+                const d = dati.drinks.map( el =>{
+            
+                    const objResponse = {
+                        nome: el.strDrink,
+                        img: el.strDrinkThumb,
+                        categoria: el.strCategory,
+                        tipo: el.strAlcoholic,
+                        glass: el.strGlass,
+                        istruzioni: el.strInstructionsIT,
+                        ingredienti: flatIngredients(el)
+                    }
+                    return objResponse;
+                });
+                d.map( (el) => {
+                    fnCreaComponent(el);
+                })
+            }
+        });
