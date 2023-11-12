@@ -129,7 +129,7 @@ const fnCreaComponent = (obj) => {
     div_wrappComponents.appendChild(div_component);
 }
 
-btn_search.addEventListener('click', fnSearchCocktail);
+btn_search.addEventListener('keydown', fnSearchCocktail);
 
 input_search.addEventListener('change', fnSearchCocktail);
 
